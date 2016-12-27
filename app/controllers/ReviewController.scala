@@ -1,11 +1,18 @@
 package controllers
 
+import javax.inject.Inject
+
+import play.api.i18n.MessagesApi
 import play.api.mvc.Controller
+import services.IProductService
 
 /**
   * Created by lukas on 12/25/2016.
   */
-class ReviewController extends Controller {
+class ReviewController @Inject()
+(val messagesApi: MessagesApi,
+ val productService: IProductService)
+  extends Controller {
 
 
   def index() = play.mvc.Results.TODO

@@ -24,6 +24,8 @@ class Module extends AbstractModule {
     // Set AtomicCounter as the implementation for Counter.
     bind(classOf[Counter]).to(classOf[AtomicCounter])
     bind(classOf[IProductService]).to(classOf[ProductService]).asEagerSingleton()
+    bind(classOf[IReviewService]).to(classOf[ReviewService]).asEagerSingleton()
+    bind(classOf[IImageService]).to(classOf[ImageService]).asEagerSingleton()
   }
 
 }

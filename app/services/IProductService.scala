@@ -3,37 +3,69 @@ package services
 /**
   * Created by lukas on 12/25/2016.
   */
+
 import javax.inject.Singleton
 
 import models.Product
 
-trait IProductService extends BaseService[Product]{
-  def insert(product: Product):Long
-  def update(id:Long, product: Product):Boolean
-  def remove(id:Long):Boolean
-  def findById(id:Long):Option[Product]
-  def findAll():Option[List[Product]]
-  def findAllProducts():Seq[(String,String)]
+trait IProductService extends BaseService[Product] {
+  override def insert(product: Product): Long
+
+  override def update(id: Long, product: Product): Boolean
+
+  override def remove(id: Long): Boolean
+
+  override def findById(id: Long): Option[Product]
+
+  override def findAll(): Option[List[Product]]
+
+  def findAllProducts(): Seq[(String, String)]
 
 }
 
 @Singleton
-class ProductService extends IProductService{
+class ProductService extends IProductService {
 
-  override def insert(product: Product):Long = {
+  override def insert(product: Product): Long = {
     val id = idCounter.incrementAndGet()
     product.id = Some(id)
-    inMemoryDB.put(id,product)
+    inMemoryDB.put(id, product)
     id
   }
 
-  override def update(id: Long, product: Product) = ???
+  private def validateId(id: Long): Unit = {
+    val entry = inMemoryDB.get(id)
+    if (entry == null) throw new RuntimeException("Could not find Product: " + id)
+  }
 
-  override def remove(id: Long) = ???
+  override def update(id: Long, product: Product): Boolean = {
+    validateId(id)
+    product.id = Some(id)
+    inMemoryDB.put(id, product)
+    true
+  }
 
-  override def findById(id: Long) = ???
+  override def remove(id: Long): Boolean = {
+    validateId(id)
+    inMemoryDB.remove(id)
+    true
+  }
 
-  override def findAll() = ???
+  override def findById(id: Long): Option[Product] = {
+    inMemoryDB.get(id)
+  }
 
-  override def findAllProducts() = ???
+  override def findAll() = {
+    if (inMemoryDB.values == Nil || inMemoryDB.values.toList.isEmpty) None
+    else
+      Some(inMemoryDB.values.toList)
+  }
+
+  override def findAllProducts(): Seq[(String, String)] = {
+    val products: Seq[(String, String)] = this
+      .findAll()
+      .getOrElse(List(Product(Some(0), "", "", 0)))
+      .map { product => (product.id.get.toString, product.name) }
+    products
+  }
 }
