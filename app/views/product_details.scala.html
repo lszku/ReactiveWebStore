@@ -1,7 +1,4 @@
-@(id: Option[Long], product: Form[Product])(implicit flash: Flash)
-
-@import play.api.i18n.Messages.Implicits._
-@import play.api.Play.current
+@(id: Option[Long], product: Form[Product])(implicit flash: Flash, messages: Messages)
 
 @main("Product: " + product("name").value.getOrElse("")) {
 
@@ -15,11 +12,12 @@
     }
 
     @helper.form(action = if(id.isDefined)
-        routes.ProductController.update(id.get) else routes.ProductController.insert) {
+        routes.ProductController.update(id.get)
+    else routes.ProductController.insert) {
 
         @helper.inputText(product("name"), '_label -> "Product Name")
-        @helper.inputText (product ("details"), '_label -> "Product Details")
-        @helper.inputText (product ("price"), '_label -> "Price")
+        @helper.inputText(product ("details"), '_label -> "Product Details")
+        @helper.inputText(product ("price"), '_label -> "Price")
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">

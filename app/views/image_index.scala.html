@@ -1,4 +1,4 @@
-@(images: Seq[Image])(implicit flash: Flash)
+@(images: Seq[Image])(implicit flash: Flash, messages: Messages)
 @main("Images") {
     @if(!images.isEmpty) {
         <table class="table table-striped">

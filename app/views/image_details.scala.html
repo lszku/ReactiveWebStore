@@ -1,7 +1,5 @@
-@(id: Option[Long], image: Form[Image], products: Seq[(String, String)])(implicit flash: Flash)
+@(id: Option[Long], image: Form[Image], products: Seq[(String, String)])(implicit flash: Flash, messages: Messages)
 
-@import play.api.i18n.Messages.Implicits._
-@import play.api.Play.current
 
 @main("Image: " + image("productId").value.getOrElse("")) {
     @if(image.hasErrors) {
