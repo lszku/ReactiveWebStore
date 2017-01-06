@@ -10,7 +10,6 @@ import play.api.test.Helpers._
 class ApplicationSpec extends PlaySpec with OneAppPerTest {
 
   "Routes" should {
-
     "send 404 on a bad request" in  {
       route(app, FakeRequest(GET, "/boum")).map(status(_)) mustBe Some(NOT_FOUND)
     }
@@ -30,7 +29,6 @@ class ApplicationSpec extends PlaySpec with OneAppPerTest {
   }
 
   "CountController" should {
-
     "return an increasing count" in {
       contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "0"
       contentAsString(route(app, FakeRequest(GET, "/count")).get) mustBe "1"

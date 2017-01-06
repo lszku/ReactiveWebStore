@@ -54,6 +54,7 @@ class ProductController @Inject()(val messagesApi: MessagesApi, val service: IPr
       },
       product => {
         val id = service.insert(product)
+        Logger.info(s"inserted product $id")
         Redirect(routes.ProductController.index()).flashing("success" -> Messages("success.insert", id))
       })
   }
