@@ -21,6 +21,7 @@ trait IReviewService extends BaseService[Review] {
 
 @Singleton
 class ReviewService extends IReviewService {
+
   def insert(review: Review): Long = {
     val id = idCounter.incrementAndGet();
     review.id = Some(id)

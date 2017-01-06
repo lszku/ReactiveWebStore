@@ -35,7 +35,7 @@ class ProductService extends IProductService {
 
   private def validateId(id: Long): Unit = {
     val entry = inMemoryDB.get(id)
-    if (entry == null) throw new RuntimeException("Could not find Product: " + id)
+    if (entry.isEmpty || entry == null) throw new RuntimeException("Could not find Product: " + id)
   }
 
   override def update(id: Long, product: Product): Boolean = {

@@ -45,7 +45,10 @@ class ImageController @Inject()(val messagesApi: MessagesApi,
         if (image.productId == null || image.productId.getOrElse(0) == 0) {
           Redirect(routes.ImageController.blank()).flashing("error" -> "Product ID cannot be null!")
         } else {
-          if (image.url == null || "".equals(image.url)) image.url = "/assets/images/default_product.png"
+          if (image.url == null || "".equals(image.url))
+//            image.url = "images/default_product.png"
+            image.url = routes.Assets.versioned("images/default_product.png").url
+          Logger.info(image.url)
           val id = imageService.insert(image)
           Redirect(routes.ImageController.index)
             .flashing("success" -> Messages("success.insert", id))

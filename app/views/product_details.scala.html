@@ -20,6 +20,9 @@
         @helper.inputText(product ("price"), '_label -> "Price")
 
         <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="loadPrice(document)">
+                Load Rnd Price
+            </button>
             <button type="submit" class="btn btn-primary">
             @{if(id.isDefined) "Update Product" else "New Product"}
             </button>

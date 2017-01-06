@@ -40,5 +40,17 @@ POST        /image/:id                  controllers.ImageController.update(id:Lo
 POST        /image:id/remove            controllers.ImageController.remove(id:Long)
 GET         /image/details/:id          controllers.ImageController.details(id:Long)
 
+#
+# Services
+#
+GET         /rx/prices                  controllers.RxController.prices
+GET         /rx/aprices                 controllers.RxController.pricesAsync
+
+GET         /rnd/double                 controllers.RndDoubleGeneratorController.rndDouble
+GET         /rnd/call                   controllers.RndDoubleGeneratorController.rndCall
+GET         /rnd/rx                     controllers.RndDoubleGeneratorController.rxCall
+GET         /rnd/rxbat                  controllers.RndDoubleGeneratorController.rxScalaCallBatch
+
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

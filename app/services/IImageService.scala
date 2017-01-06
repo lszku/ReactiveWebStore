@@ -30,7 +30,7 @@ class ImageService extends IImageService {
 
   def validateId(id: Long) = {
     val entry = inMemoryDB.get(id)
-    if (entry == null) throw new RuntimeException("Couldn't find image: " + id)
+    if (entry == null || entry.isEmpty) throw new RuntimeException("Couldn't find image: " + id)
   }
 
   override def update(id: Long, image: Image): Boolean = {
